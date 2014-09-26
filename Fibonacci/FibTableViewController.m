@@ -55,20 +55,21 @@ const static int BATCH_SIZE = 50;
     return cell;
 }
 
-// Extend the table as needed with new terms.
+// Extend the table as needed with new terms in the background.
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == self.fibCache.count - 1) {
-        [self nextBatch];
-        [tableView reloadData];
+        [self performSelectorInBackground:@selector(nextBatch) withObject:nil];
     }
 }
 
-// Generate BATCH_SIZE fibonacci terms at a time.
+// Generate BATCH_SIZE fibonacci terms at a time and then update the tableview data once it's done.
 - (void) nextBatch {
     NSUInteger cacheCount = self.fibCache.count;
     for(NSUInteger i = cacheCount; i < cacheCount + BATCH_SIZE; i++) {
         [self fib:i];
     }
+
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 // This approach is the most scalable.
