@@ -9,6 +9,7 @@
 #import "FibTableViewController.h"
 #import "BigInt.h"
 
+// Simply modify this constant to larger number to get tables with more terms faster.
 const static int BATCH_SIZE = 20;
 
 @interface FibTableViewController ()
