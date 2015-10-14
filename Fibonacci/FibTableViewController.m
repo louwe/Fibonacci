@@ -67,6 +67,8 @@ const static int BATCH_SIZE = 50;
     NSUInteger cacheCount = self.fibCache.count;
     for(NSUInteger i = cacheCount; i < cacheCount + BATCH_SIZE; i++) {
         [self fib:i];
+//        self.fibCache[i] = @([self fibBinet:i]);
+//        self.fibCache[i] = [self fibRecursive:i];
     }
 
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
